@@ -8,7 +8,7 @@
     - flask
     
   vars_files:
-    - vars.yml
+    - group_vars/app_servers.yml
 
   tasks:
 
