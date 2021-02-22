@@ -6,6 +6,7 @@
   tags:
     - database_servers
   vars:
+    guid: 4a30
     postgres_rhel7_repo: "https://download.postgresql.org/pub/repos/yum/10/redhat/rhel-7-x86_64/pgdg-redhat-repo-latest.noarch.rpm"
     postgres_packages:
       - postgresql10 
@@ -251,6 +252,8 @@
   hosts: app_servers:database_servers
   gather_facts: true
   become: true
+  vars:
+    guid: 4a30
   tags:
     - smoketest  
 
@@ -278,7 +281,7 @@
  
     - name: Check webserver for correct response
       uri:
-        url: "http://frontend/ping"
+        url: "http://frontend1.4a30.example.opentlc.com/ping"
         return_content: yes
       until: '"alive" in result.content'
       retries: 10

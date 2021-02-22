@@ -1,11 +1,15 @@
 [load_balancers]
-frontend 
+#frontend ansible_host=frontend1.4a30.internal
+frontend1
 
 [app_servers]
-app-01
-app-02
+#app-01 ansible_host=app1.4a30.internal
+app1
+#app-02 ansible_host=app2.4a30.internal
+app2
 
 [database_servers]
+#appdb1 ansible_host=appdb1.4a30.internal
 appdb1
 
 [internal:children]
