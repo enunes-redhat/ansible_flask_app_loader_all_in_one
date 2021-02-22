@@ -4,39 +4,11 @@
   gather_facts: false 
   become: true
 
-  vars_files:
-    - group_vars/load_balancers.yml
-    #load_balancer_packages:
-    #  - haproxy
-
   tags:
     - load_balancers
 
-  tasks:
-
-    - name: Install load balancer packages
-      package:
-        name: "{{ load_balancer_packages }}"
-        state: present
-
-    - name: Configure haproxy load balancing
-      template:
-        src: haproxy.cfg.j2
-        dest: /etc/haproxy/haproxy.cfg
-      notify: restart_haproxy
-
-    - name: Enable Haproxy
-      service:
-        name: haproxy
-        state: started
-        enabled: true
-
-  handlers:
-
-    - name: restart_haproxy
-      service:
-        name: haproxy
-        state: restarted
+  roles:
+    - load_balancer
 
 - name: End to end smoke tests
   hosts: app_servers:database_servers
@@ -45,10 +17,10 @@
   vars:
     guid: 4a30
   tags:
-    - smoketest  
-
+    - smoketest
+ 
   tasks:
-
+ 
     - name: Smoketest Postgres database
       postgresql_ping:
         db: flask_db
@@ -60,13 +32,13 @@
       run_once: true
       tags:
         - smoketest
-
+ 
 - name: End to end smoke tests
   hosts: app_servers
   become: false
   gather_facts: false
   tags:
-    - smoketest  
+    - smoketest
   tasks:
  
     - name: Check webserver for correct response
