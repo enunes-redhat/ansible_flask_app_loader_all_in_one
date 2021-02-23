@@ -7,8 +7,6 @@
     - application_servers
     - flask
     
-#  vars_files:
-#    - group_vars/app_servers.yml
   roles:
      - app
 

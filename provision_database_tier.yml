@@ -5,7 +5,5 @@
   gather_facts: false
   tags:
     - database_servers
-#  vars_files:
-#    - group_vars/database_servers.yml
   roles:
     - postgres
